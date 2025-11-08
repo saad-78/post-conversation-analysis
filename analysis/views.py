@@ -69,24 +69,20 @@ def analyze_conversation(request):
             status=status.HTTP_404_NOT_FOUND
         )
     
-    # Check if conversation has messages
     if not conversation.messages.exists():
         return Response(
             {'error': 'Conversation has no messages to analyze'},
             status=status.HTTP_400_BAD_REQUEST
         )
     
-    # Run analysis
     analyzer = ConversationAnalyzer()
     analysis_data = analyzer.analyze_conversation(conversation)
     
-    # Save or update analysis
     analysis, created = ConversationAnalysis.objects.update_or_create(
         conversation=conversation,
         defaults=analysis_data
     )
     
-    # Mark conversation as analyzed
     conversation.analyzed = True
     conversation.save()
     
@@ -113,7 +109,6 @@ def get_reports(request):
     """
     analyses = ConversationAnalysis.objects.all()
     
-    # Optional filtering
     sentiment_filter = request.query_params.get('sentiment', None)
     resolution_filter = request.query_params.get('resolution', None)
     

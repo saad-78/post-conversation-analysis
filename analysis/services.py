@@ -8,7 +8,6 @@ class ConversationAnalyzer:
     """
     
     def __init__(self):
-        # Initialize sentiment analyzer
         self.sia = SentimentIntensityAnalyzer()
     
     def analyze_conversation(self, conversation):
@@ -20,7 +19,6 @@ class ConversationAnalyzer:
         ai_messages = [m.text for m in messages if m.sender == 'ai']
         user_messages = [m.text for m in messages if m.sender == 'user']
         
-        # Perform all analyses
         sentiment_result = self.analyze_sentiment(user_messages)
         clarity = self.analyze_clarity(ai_messages)
         relevance = self.analyze_relevance(ai_messages, user_messages)
@@ -32,7 +30,6 @@ class ConversationAnalyzer:
         escalation_needed = self.check_escalation(sentiment_result, resolution)
         response_time = self.calculate_response_time()
         
-        # Calculate overall score
         overall_score = self.calculate_overall_score({
             'clarity': clarity,
             'relevance': relevance,
@@ -88,13 +85,13 @@ class ConversationAnalyzer:
         clarity_scores = []
         for msg in ai_messages:
             length = len(msg)
-            # Messages between 20-200 chars are considered clear
+           
             if 20 <= length <= 200:
                 clarity_scores.append(0.9)
             elif length < 20:
-                clarity_scores.append(0.4)  # Too short
+                clarity_scores.append(0.4) 
             else:
-                clarity_scores.append(0.7)  # Too long
+                clarity_scores.append(0.7) 
         
         return sum(clarity_scores) / len(clarity_scores)
     
@@ -106,11 +103,9 @@ class ConversationAnalyzer:
         if not ai_messages or not user_messages:
             return 0.5
         
-        # Simple keyword overlap check
         user_words = set(' '.join(user_messages).lower().split())
         ai_words = set(' '.join(ai_messages).lower().split())
         
-        # Remove common stopwords
         stopwords = {'the', 'a', 'an', 'is', 'are', 'was', 'were', 'i', 'you', 'can', 'will'}
         user_words -= stopwords
         ai_words -= stopwords
@@ -121,7 +116,7 @@ class ConversationAnalyzer:
         overlap = len(user_words.intersection(ai_words))
         relevance = min(overlap / len(user_words), 1.0)
         
-        return max(relevance, 0.3)  # Minimum score of 0.3
+        return max(relevance, 0.3)  
     
     def analyze_empathy(self, ai_messages):
         """
@@ -143,7 +138,6 @@ class ConversationAnalyzer:
             if any(keyword in msg_lower for keyword in empathy_keywords):
                 empathy_count += 1
         
-        # Score based on percentage of empathetic messages
         return min(empathy_count / len(ai_messages), 1.0)
     
     def analyze_completeness(self, ai_messages):
@@ -171,8 +165,6 @@ class ConversationAnalyzer:
         Mock accuracy scoring (in real-world, would use fact-checking)
         Range: 0.0 to 1.0
         """
-        # For this assignment, we'll use a reasonable random score
-        # In production, you'd integrate fact-checking APIs
         return random.uniform(0.7, 1.0)
     
     def count_fallbacks(self, ai_messages):
@@ -207,13 +199,11 @@ class ConversationAnalyzer:
         if not messages:
             return False
         
-        # Convert queryset to list to support negative indexing
         messages_list = list(messages)
         
         if len(messages_list) < 2:
             return False
         
-        # Check last 2 messages
         last_messages = [m.text.lower() for m in messages_list[-2:]]
         resolution_keywords = [
             'thank', 'thanks', 'resolved', 'fixed', 
@@ -239,7 +229,6 @@ class ConversationAnalyzer:
         In production, would use actual timestamp differences
         Returns: float (seconds)
         """
-        # Mock: random response time between 5-30 seconds
         return random.uniform(5.0, 30.0)
     
     def calculate_overall_score(self, scores):
