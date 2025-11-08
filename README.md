@@ -57,7 +57,7 @@ This system automatically analyzes conversations between AI agents and human use
 
 ### 1. Clone Repository
 
-git clone https://github.com/YOUR-USERNAME/post-conversation-analysis.git
+git clone https://github.com/saad-78/post-conversation-analysis.git
 cd post-conversation-analysis
 
 
