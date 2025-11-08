@@ -257,35 +257,6 @@ result = analyze_all_new_conversations.delay()
 print(result.get(timeout=10))
 
 
-
----
-
-## 🗂️ Project Structure
-
-post-conversation-analysis/
-├── conversation_analyzer/ # Django project settings
-│ ├── settings.py # Configuration
-│ ├── urls.py # Main URL routing
-│ ├── celery.py # Celery configuration
-│ └── wsgi.py
-├── analysis/ # Main application
-│ ├── models.py # Database models
-│ ├── views.py # API endpoints
-│ ├── serializers.py # JSON serialization
-│ ├── services.py # Analysis logic (11 parameters)
-│ ├── tasks.py # Celery background tasks
-│ ├── admin.py # Django admin config
-│ └── urls.py # App URL routing
-├── venv/ # Virtual environment (not in git)
-├── db.sqlite3 # SQLite database
-├── manage.py # Django CLI tool
-├── requirements.txt # Python dependencies
-├── README.md # This file
-├── API_DOCUMENTATION.md # Detailed API docs
-└── .gitignore # Git ignore rules
-
-
-
 ---
 
 ## 🧪 Testing
