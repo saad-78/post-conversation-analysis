@@ -3,7 +3,6 @@
 ## Base URL
 http://localhost:8000/api/
 
-text
 
 ## Endpoints
 
@@ -21,7 +20,6 @@ Upload a new conversation with messages.
 ]
 }
 
-text
 
 **Response (201 Created):**
 {
@@ -31,7 +29,6 @@ text
 "analyzed": false
 }
 
-text
 
 ---
 
@@ -45,7 +42,6 @@ Trigger analysis on a specific conversation.
 "conversation_id": 1
 }
 
-text
 
 **Response (200 OK):**
 {
